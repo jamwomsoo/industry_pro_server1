@@ -51,6 +51,10 @@ vs = cv2.VideoCapture(args["input"])
 read = 0
 saved = 0
 
+#저장파일 
+input = args["input"]
+print(input[9:20])
+
 # 비디오 파일 스트림 프레임 반복
 while True:
 	# 파일에서 비디오 스트림 프레임 입력
@@ -95,9 +99,13 @@ while True:
 			(startX, startY, endX, endY) = box.astype("int")
 			face = frame[startY:endY, startX:endX]
 			
-			#이름의 폴더생성
-			#os.makedirs(os.path.join({args["output"]}))
+			#파일 이름의 폴더생성
 			
+			path = "./dataset/"+args["input"][9:20]
+			print("path:"+path)
+			if not os.path.isdir(path):
+				os.mkdir(path)
+
 			# 프레임 쓰기
 			p = os.path.sep.join([args["output"], "{}.png".format(saved)])
 			cv2.imwrite(p, face)
